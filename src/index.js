@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StatusBar, StyleSheet } from 'react-native';
 
 export default function App() {
