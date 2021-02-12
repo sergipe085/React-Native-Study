@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, Text, Button, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, FlatList, Text, TouchableOpacity, StatusBar, StyleSheet } from 'react-native';
 
 import api from './services/api.js';
 
@@ -33,9 +33,10 @@ export default function App() {
             </>
           )}
         />
+        <TouchableOpacity translucent style={styles.button} onPress={handleAddProject}>
+          <Text style={styles.buttonText}>Adicionar Projeto</Text>
+        </TouchableOpacity>
       </SafeAreaView>
-
-      <Button title="Adicionar" onPress={handleAddProject}></Button>
     </>
   );
 }
@@ -47,7 +48,20 @@ const styles = StyleSheet.create({
   },
   project: {
     color: '#FFF',
-    fontSize: 34,
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: '#FFF',
+    alignSelf: 'stretch',
+    height: 70,
+    margin: 20,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
     fontWeight: 'bold',
   }
 });
