@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, Text, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, FlatList, Text, Button, StatusBar, StyleSheet } from 'react-native';
 
 import api from './services/api.js';
 
@@ -8,10 +8,17 @@ export default function App() {
 
   useEffect(() => {
     api.get('/projects').then((response) => {
-      console.log(response.data);
       setProjects(response.data);
     })
   }, [])
+
+  async function handleAddProject() {
+    const res = await api.post('/projects', {
+      title: `Novo Projecto ${Date.now()}`
+    })
+
+    setProjects([...projects, res.data]);
+  }
 
   return (
     <>
@@ -21,10 +28,14 @@ export default function App() {
           data={projects}
           keyExtractor={(project) => project.id}
           renderItem={({ item: project }) => (
-            <Text style={styles.project}>{project.title}</Text>
+            <>
+              <Text style={styles.project}>{project.title}</Text>
+            </>
           )}
         />
       </SafeAreaView>
+
+      <Button title="Adicionar" onPress={handleAddProject}></Button>
     </>
   );
 }
